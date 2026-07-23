@@ -1,4 +1,4 @@
-#  Quantum Radar
+# Quantum Radar
 
 A Java-based traffic radar system that processes vehicle observations, detects traffic violations using configurable rules, and automatically generates traffic fines.
 
@@ -6,7 +6,7 @@ This project was implemented as a solution for a **Fawry Software Engineering Tr
 
 ---
 
-##  Features
+## Features
 
 - Process vehicle observations containing:
   - Plate Number
@@ -14,22 +14,16 @@ This project was implemented as a solution for a **Fawry Software Engineering Tr
   - Vehicle Type (Private, Truck, Bus)
   - Speed
   - Seatbelt Status
-
 - Validate observations against configurable traffic rules.
-
 - Generate zero or more violations for each observation.
-
 - Automatically issue traffic fines.
-
 - Display all generated fines.
-
 - Display violation statistics by rule.
-
 - Easily add new traffic rules without modifying the radar implementation.
 
 ---
 
-##  Project Structure
+## Project Structure
 
 ```
 src
@@ -47,6 +41,7 @@ src
 │
 ├── rules
 │   ├── Rule.java
+│   ├── SpeedRule.java
 │   ├── SeatbeltRule.java
 │   ├── PrivateSpeedRule.java
 │   └── TruckSpeedRule.java
@@ -56,7 +51,7 @@ src
 
 ---
 
-##  Traffic Rules
+## Traffic Rules
 
 | Rule | Condition | Fine |
 |------|-----------|------|
@@ -66,7 +61,7 @@ src
 
 ---
 
-##  Example Output
+## Example Output
 
 ```text
 Traffic for car ABC1234
@@ -81,21 +76,18 @@ Violations:
 - speed of 70 exceeded max allowed 60 : 300 EGP
 
 ===== All Fines =====
-
 ABC1234 -> 400 EGP
 XYZ5678 -> 300 EGP
-BBB2222 -> 100 EGP
 
 ===== Rule Statistics =====
-
-Seatbelt Rule -> 2
+Seatbelt Rule -> 1
 Private Speed Rule -> 1
 Truck Speed Rule -> 1
 ```
 
 ---
 
-##  Technologies
+## Technologies
 
 - Java
 - Object-Oriented Programming (OOP)
@@ -104,7 +96,7 @@ Truck Speed Rule -> 1
 
 ---
 
-##  Design Principles
+## Design Principles
 
 - Encapsulation
 - Abstraction
@@ -115,18 +107,17 @@ Truck Speed Rule -> 1
 
 ---
 
-##  Extending the System
+## Extending the System
 
-Adding a new traffic rule only requires implementing the `Rule` interface and registering it in the radar.
+Adding a new traffic rule only requires extending `SpeedRule` (for speed-based rules) or implementing the `Rule` interface directly (for other kinds of rules), then registering it in the radar.
 
-Example:
+Example — adding a new speed rule for buses:
 
 ```java
-public class BusSpeedRule implements Rule {
+public class BusSpeedRule extends SpeedRule {
 
-    @Override
-    public Violation check(Observation observation) {
-        // Custom validation
+    public BusSpeedRule() {
+        super(CarType.BUS, 70, 250, "Bus Speed Rule");
     }
 }
 ```
@@ -139,21 +130,18 @@ No modification to the `QuRadar` class is required.
 
 ---
 
-##  Running the Project
+## Running the Project
 
 1. Clone the repository
-
 ```bash
 git clone https://github.com/your-username/Quantum-Radar.git
 ```
-
 2. Open the project in IntelliJ IDEA (or any Java IDE).
-
 3. Run `Main.java`.
 
 ---
 
-##  Learning Objectives
+## Learning Objectives
 
 This project demonstrates:
 
